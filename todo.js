@@ -4,11 +4,7 @@ var listElement = document.querySelector('#app ul');
 var inputElement = document.querySelector('#app input');
 var buttonElement = document.querySelector('#app button');
 
-var todos = [
-  'Fazer javascript',
-  'Estudar mais javascript',
-  'Acessar comunidade javascript'
-];
+var todos = JSON.parse(localStorage.getItem('list_todos')) || [];
 
 function renderTodos() {
   listElement.innerHTML = '';
@@ -44,6 +40,7 @@ function addTodo() {
   inputElement.value = '';
 
   renderTodos();
+  saveToStorage();
 }
 
 buttonElement.onclick = addTodo;
@@ -56,4 +53,9 @@ function deleteTodo(pos) {
   }
 
   renderTodos();
+  saveToStorage();
+}
+
+function saveToStorage() {
+  localStorage.setItem('list_todos', JSON.stringify(todos));
 }
