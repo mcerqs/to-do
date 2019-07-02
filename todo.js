@@ -1,11 +1,13 @@
-console.log("JS it's working...");
-
 var listElement = document.querySelector('#app ul');
 var inputElement = document.querySelector('#app input');
 var buttonElement = document.querySelector('#app button');
 
+// Input focus
+var inputFocusElement = document.querySelector('.inputFocus');
+
 var todos = JSON.parse(localStorage.getItem('list_todos')) || [];
 
+// List todos
 function renderTodos() {
   listElement.innerHTML = '';
 
@@ -30,8 +32,10 @@ function renderTodos() {
   }
 }
 
+// Load todos
 renderTodos();
 
+// Add item
 function addTodo() {
   var todoText = inputElement.value;
 
@@ -41,10 +45,13 @@ function addTodo() {
 
   renderTodos();
   saveToStorage();
+  inputFocus();
 }
 
+// Event click
 buttonElement.onclick = addTodo;
 
+// Delete item
 function deleteTodo(pos) {
   todos.splice(pos, 1);
 
@@ -54,8 +61,15 @@ function deleteTodo(pos) {
 
   renderTodos();
   saveToStorage();
+  inputFocus();
 }
 
+// Save to storage
 function saveToStorage() {
   localStorage.setItem('list_todos', JSON.stringify(todos));
+}
+
+// Focus input
+function inputFocus() {
+  inputFocusElement.focus();
 }
